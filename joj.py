@@ -38,6 +38,8 @@ def create_reviews_table():
 def main():
     # create_reviews_table()
 
+    main_container = st.container()
+
     # Odabir jezika
     lang = st.sidebar.selectbox("Select language", ["Hrvatski", "English"])
 
@@ -93,19 +95,21 @@ def main():
 
     if selected_option == "Početna" or selected_option == "Home":
         if lang == "Hrvatski":
-            st.markdown("""
-                ## O nama
-                Dobrodošli na našu platformu za čišćenje. Posvećeni smo pružanju visokokvalitetnih usluga čišćenja našim klijentima.
-                Naša misija je učiniti vaše životne i radne prostore čistima i udobnima.
-                Ako imate bilo kakvih pitanja ili upita, slobodno nas kontaktirajte putem telefona ili e-pošte.
-            """)
+            with main_container:
+                st.markdown("""
+                    ## O nama
+                    Dobrodošli na našu platformu za čišćenje. Posvećeni smo pružanju visokokvalitetnih usluga čišćenja našim klijentima.
+                    Naša misija je učiniti vaše životne i radne prostore čistima i udobnima.
+                    Ako imate bilo kakvih pitanja ili upita, slobodno nas kontaktirajte putem telefona ili e-pošte.
+                """)
         else:
-            st.markdown("""
-                ## About Us
-                Welcome to our cleaning platform. We are dedicated to providing high-quality cleaning services to our clients.
-                Our mission is to make your living and working spaces clean and comfortable.
-                If you have any questions or inquiries, feel free to contact us by phone or email.
-            """)
+            with main_container:
+                st.markdown("""
+                    ## About Us
+                    Welcome to our cleaning platform. We are dedicated to providing high-quality cleaning services to our clients.
+                    Our mission is to make your living and working spaces clean and comfortable.
+                    If you have any questions or inquiries, feel free to contact us by phone or email.
+                """)
 
         input_title_string = ""
         input_name_string = ""
@@ -148,7 +152,7 @@ def main():
             # Dodavanje Lottie animacije ispod teksta "O nama"
             lottie_coding = load_lottieurl("https://lottie.host/365598bf-526c-4951-96f1-75ca60aa92c3/WOWxrN6RTX.json")
             if lottie_coding:
-                st_lottie(lottie_coding, height=300, key="coding")
+                st_lottie(lottie_coding, height=375, key="coding", )
 
         st.sidebar.title(contact_title)
         st.sidebar.write("\n\n### " + contact_phone)
