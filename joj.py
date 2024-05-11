@@ -34,6 +34,75 @@ def create_reviews_table():
     conn.close()
 
 
+class WebsiteConfiguration:
+    title = ""
+    contact_title = ""
+    contact_phone = ""
+    contact_email = ""
+    offers_and_promotions = ""
+    special_offers = ""
+    page_watermark = ""
+    deep_cleaning = ""
+    deep_cleaning_desc = ""
+    deep_cleaning_price = ""
+    regular_maintenance = ""
+    regular_maintenance_desc = ""
+    regular_maintenance_price = ""
+    garden_cleaning = ""
+    garden_cleaning_desc = ""
+    garden_cleaning_price = ""
+    car_cleaning = ""
+    car_cleaning_desc = ""
+    car_cleaning_price = ""
+    special_offers_text = ""
+
+
+def configure_website_info(website_conf : WebsiteConfiguration, language):
+    # postaviti varijable
+    if language == "Hrvatski":
+        website_conf.title = "Čistoća"
+        website_conf.contact_title = "Javite nam se putem telefona ili e-poštom!"
+        website_conf.contact_phone = "Telefon: 123-456-789"
+        website_conf.contact_email = "Email: tvoj.mail@gmail.com"
+        website_conf.offers_and_promotions = "Ponude i Promocije:"
+        website_conf.special_offers = "Posebne ponude"
+        website_conf.page_watermark = "©2024 Čistoća"
+        website_conf.deep_cleaning = "Dubinsko čišćenje"
+        website_conf.deep_cleaning_desc = "Ova usluga uključuje temeljito čišćenje kaučeva i podova."
+        website_conf.deep_cleaning_price = "Cijena: 1000€ mjesečno"
+        website_conf.regular_maintenance = "Redovno održavanje"
+        website_conf.regular_maintenance_desc = "Ova usluga obuhvaća redovno usisavanje i brisanje prašine, kao i pranje prozora."
+        website_conf.regular_maintenance_price = "Cijena: 800€ mjesečno"
+        website_conf.garden_cleaning = "Čišćenje vrta"
+        website_conf.garden_cleaning_desc = "Ova usluga uključuje temeljito čišćenje vrta."
+        website_conf.garden_cleaning_price = "Cijena: 1200€ mjesečno"
+        website_conf.car_cleaning = "Čišćenje automobila"
+        website_conf.car_cleaning_desc = "Ova usluga uključuje temeljito čišćenje unutrašnjosti i eksterijera automobila."
+        website_conf.car_cleaning_price = "Cijena: 500€ mjesečno"
+        website_conf.special_offers_text = "- **10% popusta za nove klijente!**\n- **Program vjernosti: Nakon svakog 5. čišćenja, 50% popusta na sljedeće!**\n- **Besplatno procjenjivanje: Kontaktirajte nas za besplatnu procjenu vaših potreba za čišćenjem!**"
+    else:
+        website_conf.title = "Cleanliness"
+        website_conf.contact_title = "Contact us by phone or email!"
+        website_conf.contact_phone = "Phone: 123-456-789"
+        website_conf.contact_email = "Email: your.email@gmail.com"
+        website_conf.offers_and_promotions = "Offers and Promotions:"
+        website_conf.special_offers = "Special Offers"
+        website_conf.page_watermark = "©2024 Cleanliness"
+        website_conf.deep_cleaning = "Deep Cleaning"
+        website_conf.deep_cleaning_desc = "This service includes thorough cleaning of sofas and floors."
+        website_conf.deep_cleaning_price = "Price: €1000 per month"
+        website_conf.regular_maintenance = "Regular Maintenance"
+        website_conf.regular_maintenance_desc = "This service includes regular vacuuming and dusting, as well as window washing."
+        website_conf.regular_maintenance_price = "Price: €800 per month"
+        website_conf.garden_cleaning = "Garden Cleaning"
+        website_conf.garden_cleaning_desc = "This service includes thorough cleaning of the garden area."
+        website_conf.garden_cleaning_price = "Price: €1200 per month"
+        website_conf.car_cleaning = "Car Cleaning"
+        website_conf.car_cleaning_desc = "This service includes thorough cleaning of the interior and exterior of the car."
+        website_conf.car_cleaning_price = "Price: €500 per month"
+        website_conf.special_offers_text = "- **10% discount for new clients!**\n- **Loyalty program: After every 5th cleaning, 50% off the next one!**\n- **Free assessment: Contact us for a free assessment of your cleaning needs!**"
+
+
 # Glavna funkcija
 def main():
     # create_reviews_table()
@@ -42,6 +111,11 @@ def main():
 
     # Odabir jezika
     lang = st.sidebar.selectbox("Select language", ["Hrvatski", "English"])
+
+    website_info = WebsiteConfiguration()
+
+    configure_website_info(website_info, lang)
+    # zamjeniti title, contant_title, ... s website_info.title, website_info, content_title
 
     if lang == "Hrvatski":
         title = "Čistoća"
