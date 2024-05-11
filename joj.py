@@ -4,6 +4,7 @@ from streamlit_lottie import st_lottie
 import requests
 from PIL import Image
 
+
 # Funkcija za učitavanje Lottie animacije s URL-a
 def load_lottieurl(url):
     r = requests.get(url)
@@ -11,8 +12,17 @@ def load_lottieurl(url):
         return None
     return r.json()
 
+
+def local_style(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
 # Postavljanje konfiguracije stranice
 st.set_page_config(page_title="Cleanliness")
+
+
+local_style("Style/style.css")
 
 # Funkcija za stvaranje tablice recenzija u bazi podataka
 def create_reviews_table():
@@ -22,6 +32,7 @@ def create_reviews_table():
                  (id INTEGER PRIMARY KEY, stan TEXT, recenzija TEXT, datum TEXT)''')
     conn.commit()
     conn.close()
+
 
 # Glavna funkcija
 def main():
@@ -96,42 +107,53 @@ def main():
                 If you have any questions or inquiries, feel free to contact us by phone or email.
             """)
 
+        input_title_string = ""
+        input_name_string = ""
+        input_email_string = ""
+        input_msg_string = ""
+
+        if lang == "Hrvatski":
+            input_title_string = "Dođite u Kontakt s Nama!"
+            input_name_string = "Vase ime"
+            input_email_string = "Vas email"
+            input_msg_string = "Vasa poruka"
+        else:
+            input_title_string = "Get in Contact With Us!"
+            input_name_string = "Your name"
+            input_email_string = "Your email"
+            input_msg_string = "Your message"
+
         # ---- CONTACT ----
         with st.container():
             st.write("---")
-            st.header("Get In Touch With Me!")
+            st.header(input_title_string)
             st.write("##")
 
-            # Documention: https://formsubmit.co/ !!! change email address !!!
-            contact_form = """
+        # Documention: https://formsubmit.co/ !!! change email address !!!
+        contact_form = f"""
             <form action="https://formsubmit.co/ante.arambasic00@gmail.com" method="POST">
              <input type="hidden" name="_captcha" value="false">
-             <input type="text" name="name" placeholder="Your Name" required>
-             <input type="email" name="email" placeholder="Your Email" required>
-             <textarea name=ˇmessage" placeholder="Your Message Here" required></textarea>
+             <input type="text" name="name" placeholder="{input_name_string}" length=31000 required>
+             <input type="email" name="email" placeholder="{input_email_string}" required>
+             <textarea name=ˇmessage" id="message" placeholder="{input_msg_string}" required></textarea><br />
              <button type="submit">Send</button>
         </form>
         """
-        left_colum, right_colum = st.columns(2)
+        left_colum, right_colum = st.columns([0.6, 0.4])
+
         with left_colum:
             st.markdown(contact_form, unsafe_allow_html=True)
-        with right_colum:
-            st.empty()
 
-        # Dodavanje Lottie animacije ispod teksta "O nama"
-        lottie_coding = load_lottieurl("https://lottie.host/365598bf-526c-4951-96f1-75ca60aa92c3/WOWxrN6RTX.json")
-        if lottie_coding:
-            st_lottie(lottie_coding, height=300, key="coding")
+        with right_colum:
+            # Dodavanje Lottie animacije ispod teksta "O nama"
+            lottie_coding = load_lottieurl("https://lottie.host/365598bf-526c-4951-96f1-75ca60aa92c3/WOWxrN6RTX.json")
+            if lottie_coding:
+                st_lottie(lottie_coding, height=300, key="coding")
 
         st.sidebar.title(contact_title)
         st.sidebar.write("\n\n### " + contact_phone)
         st.sidebar.write(contact_email)
         st.sidebar.write("##")
-
-        st.markdown(
-            f"""<div style="position: fixed; top: 10px; right: 10px; color: lightgrey;">{page_watermark}</div>""",
-            unsafe_allow_html=True,
-        )
 
         # Dodavanje linkova između sekcija "Contact us by phone or email!" i "Offers and Promotions:"
         if lang == "Hrvatski":
@@ -182,7 +204,7 @@ def main():
 
     # Dodavanje watermark-a
     st.markdown(
-        f"""<div style="position: fixed; top: 10px; right: 10px; color: lightgrey;">{page_watermark}</div>""",
+        f"""<div style="position: fixed; bottom: 10px; right: 10px; color: lightgrey;">{page_watermark}</div>""",
         unsafe_allow_html=True,
     )
 
@@ -201,6 +223,7 @@ def main():
                 st.write("Ovdje su slike prije i poslije čišćenja.")
 
         st.write("##")  # Dodan razmak ispod "Novo Polje"
+
 
 if __name__ == "__main__":
     main()
