@@ -96,7 +96,7 @@ def main():
                 If you have any questions or inquiries, feel free to contact us by phone or email.
             """)
 
-        # ---- CONACT ----
+        # ---- CONTACT ----
         with st.container():
             st.write("---")
             st.header("Get In Touch With Me!")
