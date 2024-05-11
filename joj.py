@@ -1,6 +1,6 @@
 import streamlit as st
 import sqlite3
-# from streamlit_lottie import st_lottie
+from streamlit_lottie import st_lottie
 import requests
 from PIL import Image
 
@@ -117,6 +117,11 @@ def main():
             st.markdown(contact_form, unsafe_allow_html=True)
         with right_colum:
             st.empty()
+
+        # Dodavanje Lottie animacije ispod teksta "O nama"
+        lottie_coding = load_lottieurl("https://lottie.host/365598bf-526c-4951-96f1-75ca60aa92c3/WOWxrN6RTX.json")
+        if lottie_coding:
+            st_lottie(lottie_coding, height=300, key="coding")
 
         st.sidebar.title(contact_title)
         st.sidebar.write("\n\n### " + contact_phone)
